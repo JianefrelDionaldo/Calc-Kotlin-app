@@ -59,7 +59,7 @@ class CalculatorViewModel: ViewModel() {
             if(equation.isNotBlank() && equation.last().isDigit()) {
                 _resultText.value = calculateResult(equation)
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             _resultText.value = "Error"
         }
     }
@@ -74,7 +74,7 @@ class CalculatorViewModel: ViewModel() {
                 result = result.removeSuffix(".0")
             }
             result
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             "Error"
         } finally {
             Context.exit()
