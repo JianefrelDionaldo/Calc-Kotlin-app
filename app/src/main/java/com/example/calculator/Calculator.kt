@@ -35,9 +35,8 @@ val buttonList = listOf(
 
 @Composable
 fun Calculator(modifier: Modifier = Modifier, viewModel: CalculatorViewModel) {
-
-    val equationText = viewModel.equationText.observeAsState()
-    val resultText = viewModel.resultText.observeAsState()
+    val equationText = viewModel.equationText.observeAsState("")
+    val resultText = viewModel.resultText.observeAsState("0")
 
     Box(modifier = modifier.padding(10.dp)) {
 
@@ -45,36 +44,35 @@ fun Calculator(modifier: Modifier = Modifier, viewModel: CalculatorViewModel) {
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.End
         ) {
+            Spacer(modifier = modifier.height(20.dp))
 
-            Spacer(modifier = modifier.height(70.dp))
-
-            Text(text = equationText.value ?: "",
+            Text(text = equationText.value,
                 style = TextStyle(
-                    fontSize = 30.sp,
+                    fontSize = 32.sp,
                     textAlign = TextAlign.End
                 ),
-                maxLines = 5,
+                maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Text(text = resultText.value ?: "",
+            Text(text = resultText.value,
                 style = TextStyle(
-                    fontSize = 60.sp,
+                    fontSize = 50.sp,
                     textAlign = TextAlign.End,
                     fontWeight = FontWeight.Bold,
                 ),
                 maxLines = 2,
             )
 
-            Spacer(modifier = modifier.height(20.dp))
+            Spacer(modifier = modifier.height(10.dp))
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(4),
             ) {
                 items(buttonList){
-                    CalculatorButton(btn = it, onClick = {viewModel.onButtonClick(it)})
+                    CalculatorButton(btn = it) { viewModel.onButtonClick(it) }
                 }
             }
         }
